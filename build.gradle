@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'edu.pucmm.eict'
+version '1.0-SNAPSHOT'
+mainClassName = 'edu.pucmm.eict.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.14' //->HTTP APACHE COMPONENETS
+    implementation 'org.jsoup:jsoup:1.13.1' //-> JSOUP
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run{
+    standardInput = System.in
+}
