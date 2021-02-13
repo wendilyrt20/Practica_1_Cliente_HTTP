@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Cliente HTTP -------> 2016-1579");
         System.out.println("URL a consultar");
 
         Scanner teclado = new Scanner(System.in);
@@ -25,11 +26,10 @@ public class Main {
         int parrafo = CantParrafos(document);
         int imagen = CantImagParr(document);
         int[] formularios = FormCategorizado(document);
-        System.out.println("Cantidad de linea en el doc HTML:" + lineas );
-        System.out.println("Cantidad de párrafo en el doc HTML:" + parrafo);
-        System.out.println("Cantidad de imagén contenidas en párrafos en el doc HTML:" + imagen);
-
-        System.out.println("Cantidad de formularios son:" + "GET: " +formularios[0] + "   POST: " + formularios[1] + "  Otros: " + formularios[2]);
+        System.out.println("Cantidad de linea en el doc HTML: " + lineas );
+        System.out.println("Cantidad de párrafo en el doc HTML: " + parrafo);
+        System.out.println("Cantidad de imáganes contenidas en párrafos: " + imagen);
+        System.out.println("Cantidad de formularios son ->" + "GET: " +formularios[0] + "   POST: " + formularios[1] + "  Otros: " + formularios[2]);
         inputTipos(document);
         ResponseServer(url, document);
     }
@@ -88,7 +88,7 @@ public class Main {
 
     /*
     e) Para cada formulario mostrar los campos del tipo input y su
-respectivo tipo que contiene en el documento HTML.  */
+    respectivo tipo que contiene en el documento HTML.  */
 
     private static void inputTipos(Document docu){
         String[] result = {"",""};
@@ -96,19 +96,16 @@ respectivo tipo que contiene en el documento HTML.  */
         for (Element form: formulario) {
             Elements input = form.getElementsByTag("input") ;
             for (Element dato: input) {
-             System.out.println("ELEMENTOS: " +dato.attr("type"));
+             System.out.println("Formularios:" + form.siblingIndex() + " " + dato.attr("type"));
             }
         }
     }
 
-    /*
-f) Para cada formulario “parseado”, identificar que el método de envío
-del formulario sea POST y enviar una petición al servidor con el
-parámetro llamado asignatura y valor practica1 y un header llamado
-matricula con el valor correspondiente a matrícula asignada. Debe
-mostrar la respuesta por la salida estándar.
-
-     */
+    /* f) Para cada formulario “parseado”, identificar que el método de envío
+    del formulario sea POST y enviar una petición al servidor con el
+    parámetro llamado asignatura y valor practica1 y un header llamado
+    matricula con el valor correspondiente a matrícula asignada. Debe
+    mostrar la respuesta por la salida estándar. */
 
     private static void ResponseServer(String url, Document docu) throws IOException {
         Elements formulario = docu.getElementsByTag("form");
@@ -121,13 +118,10 @@ mostrar la respuesta por la salida estándar.
                                          .header("matricula", "20161579").
                                         method(Connection.Method.valueOf("POST")).execute();
 
-                System.out.println("REQ: " + res.statusMessage() + " CODE: " + res.statusCode() );
+                System.out.println("Estado de la solicitud: " + res.statusMessage() + " Estado del código: " + res.statusCode() );
                 System.out.println("<------------CUERPO-------->: " );
                 System.out.println(res.body());
 
-                Connection.Request req = null;
-                req.requestBody().toString();
-                System.out.println( req.requestBody().toString());
 
             }
 
